@@ -14,8 +14,8 @@ import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame3 implements TennisGame {
 
-  private int p2;
-  private int p1;
+  private int score2;
+  private int score1;
   private String player1Name;
   private String player2Name;
 
@@ -26,19 +26,19 @@ public class TennisGame3 implements TennisGame {
 
   public String getScore() {
     String s;
-    if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
+    if (score1 < 4 && score2 < 4 && !(score1 + score2 == 6)) {
       String[] p = new String[] {LOVE, FIFTEEN, THIRTY, FORTY};
-      s = p[p1];
-      return (p1 == p2) ? s + ALL : s + "-" + p[p2];
+      s = p[score1];
+      return (score1 == score2) ? s + ALL : s + "-" + p[score2];
     } else {
-      if (p1 == p2) return DEUCE;
-      s = p1 > p2 ? player1Name : player2Name;
-      return ((p1 - p2) * (p1 - p2) == 1) ? ADVANTAGE + s : WIN_FOR + s;
+      if (score1 == score2) return DEUCE;
+      s = score1 > score2 ? player1Name : player2Name;
+      return ((score1 - score2) * (score1 - score2) == 1) ? ADVANTAGE + s : WIN_FOR + s;
     }
   }
 
   public void wonPoint(String playerName) {
-    if (playerName.equals(PLAYER1)) this.p1 += 1;
-    else this.p2 += 1;
+    if (playerName.equals(PLAYER1)) this.score1 += 1;
+    else this.score2 += 1;
   }
 }
