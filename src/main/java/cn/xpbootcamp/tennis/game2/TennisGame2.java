@@ -3,7 +3,6 @@ package cn.xpbootcamp.tennis.game2;
 import static cn.xpbootcamp.tennis.Constant.ADVANTAGE;
 import static cn.xpbootcamp.tennis.Constant.ALL;
 import static cn.xpbootcamp.tennis.Constant.DEUCE;
-import static cn.xpbootcamp.tennis.Constant.LOVE;
 import static cn.xpbootcamp.tennis.Constant.PLAYER1;
 import static cn.xpbootcamp.tennis.Constant.PLAYER2;
 import static cn.xpbootcamp.tennis.Constant.SCORE_NAMES;
@@ -16,6 +15,14 @@ public class TennisGame2 implements TennisGame {
   private int player1Point = 0;
   private int player2Point = 0;
 
+  public void wonPoint(String player) {
+    if (player.equals(PLAYER1)) {
+      player1Point++;
+    }else {
+      player2Point++;
+    };
+  }
+
   public String getScore() {
     String score = "";
     if (isEqual()) {
@@ -24,13 +31,6 @@ public class TennisGame2 implements TennisGame {
     }
 
     if (isDeuce()) score = DEUCE;
-
-    if (ifOneEqualZero()) {
-      score =
-          player1Point == 0
-              ? SCORE_NAMES[player1Point] + "-" + LOVE
-              : LOVE + "-" + SCORE_NAMES[player2Point];
-    }
 
     if (ifHigherLessThanFour()) {
       score = SCORE_NAMES[player1Point] + "-" + SCORE_NAMES[player2Point];
@@ -43,7 +43,6 @@ public class TennisGame2 implements TennisGame {
     if (isWin()) {
       score = WIN_FOR + (player2Point > player1Point ? PLAYER2 : PLAYER1);
     }
-
     return score;
   }
 
@@ -67,20 +66,4 @@ public class TennisGame2 implements TennisGame {
     return player1Point != player2Point && Math.max(player1Point, player2Point) < 4;
   }
 
-  private boolean ifOneEqualZero() {
-    return Math.max(player1Point, player2Point) > 0 && Math.min(player1Point, player2Point) == 0;
-  }
-
-  private void P1Score() {
-    player1Point++;
-  }
-
-  private void P2Score() {
-    player2Point++;
-  }
-
-  public void wonPoint(String player) {
-    if (player.equals(PLAYER1)) P1Score();
-    else P2Score();
-  }
 }
