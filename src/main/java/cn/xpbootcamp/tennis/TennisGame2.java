@@ -1,4 +1,4 @@
-package cn.xpbootcamp.tennis.game2;
+package cn.xpbootcamp.tennis;
 
 import static cn.xpbootcamp.tennis.Constant.ADVANTAGE;
 import static cn.xpbootcamp.tennis.Constant.ALL;
@@ -20,14 +20,13 @@ public class TennisGame2 implements TennisGame {
       player1Point++;
     }else {
       player2Point++;
-    };
+    }
   }
 
   public String getScore() {
     String score = "";
     if (isEqual()) {
       score = SCORE_NAMES[player1Point] + ALL;
-      ;
     }
 
     if (isDeuce()) score = DEUCE;
@@ -48,7 +47,7 @@ public class TennisGame2 implements TennisGame {
 
   private boolean isDeuce() {
     return player1Point == player2Point && player1Point >= 3;
-  };
+  }
 
   private boolean isAdvantage() {
     return player1Point != player2Point && Math.min(player1Point, player2Point) >= 3;

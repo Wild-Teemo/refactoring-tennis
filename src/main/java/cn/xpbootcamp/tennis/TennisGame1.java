@@ -1,4 +1,4 @@
-package cn.xpbootcamp.tennis.game1;
+package cn.xpbootcamp.tennis;
 
 import static cn.xpbootcamp.tennis.Constant.ADVANTAGE;
 import static cn.xpbootcamp.tennis.Constant.ALL;

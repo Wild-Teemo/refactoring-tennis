@@ -1,9 +1,6 @@
 package cn.xpbootcamp.tennis;
 
 
-import cn.xpbootcamp.tennis.game1.TennisGame1;
-import cn.xpbootcamp.tennis.game2.TennisGame2;
-import cn.xpbootcamp.tennis.game3.TennisGame3;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
