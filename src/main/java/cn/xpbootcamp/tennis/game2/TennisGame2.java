@@ -3,89 +3,80 @@ package cn.xpbootcamp.tennis.game2;
 import static cn.xpbootcamp.tennis.Constant.ADVANTAGE;
 import static cn.xpbootcamp.tennis.Constant.ALL;
 import static cn.xpbootcamp.tennis.Constant.DEUCE;
-import static cn.xpbootcamp.tennis.Constant.FIFTEEN;
-import static cn.xpbootcamp.tennis.Constant.FORTY;
 import static cn.xpbootcamp.tennis.Constant.LOVE;
 import static cn.xpbootcamp.tennis.Constant.PLAYER1;
 import static cn.xpbootcamp.tennis.Constant.PLAYER2;
-import static cn.xpbootcamp.tennis.Constant.THIRTY;
+import static cn.xpbootcamp.tennis.Constant.SCORE_NAMES;
 import static cn.xpbootcamp.tennis.Constant.WIN_FOR;
 
 import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame2 implements TennisGame {
 
-  private int P1point = 0;
-  private int P2point = 0;
-
-  private String P1res = "";
-  private String P2res = "";
+  private int player1Point = 0;
+  private int player2Point = 0;
 
   public String getScore() {
     String score = "";
-    if (P1point == P2point && P1point < 4) {
-      if (P1point == 0) score = LOVE;
-      if (P1point == 1) score = FIFTEEN;
-      if (P1point == 2) score = THIRTY;
-      score += ALL;
-    }
-    if (P1point == P2point && P1point >= 3) score = DEUCE;
-
-    if (P1point > 0 && P2point == 0) {
-      if (P1point == 1) P1res = FIFTEEN;
-      if (P1point == 2) P1res = THIRTY;
-      if (P1point == 3) P1res = FORTY;
-
-      P2res = LOVE;
-      score = P1res + "-" + P2res;
-    }
-    if (P2point > 0 && P1point == 0) {
-      if (P2point == 1) P2res = FIFTEEN;
-      if (P2point == 2) P2res = THIRTY;
-      if (P2point == 3) P2res = FORTY;
-
-      P1res = LOVE;
-      score = P1res + "-" + P2res;
+    if (isEqual()) {
+      score = SCORE_NAMES[player1Point] + ALL;
+      ;
     }
 
-    if (P1point > P2point && P1point < 4) {
-      if (P1point == 2) P1res = THIRTY;
-      if (P1point == 3) P1res = FORTY;
-      if (P2point == 1) P2res = FIFTEEN;
-      if (P2point == 2) P2res = THIRTY;
-      score = P1res + "-" + P2res;
-    }
-    if (P2point > P1point && P2point < 4) {
-      if (P2point == 2) P2res = THIRTY;
-      if (P2point == 3) P2res = FORTY;
-      if (P1point == 1) P1res = FIFTEEN;
-      if (P1point == 2) P1res = THIRTY;
-      score = P1res + "-" + P2res;
+    if (isDeuce()) score = DEUCE;
+
+    if (ifOneEqualZero()) {
+      score =
+          player1Point == 0
+              ? SCORE_NAMES[player1Point] + "-" + LOVE
+              : LOVE + "-" + SCORE_NAMES[player2Point];
     }
 
-    if (P1point > P2point && P2point >= 3) {
-      score = ADVANTAGE + PLAYER1;
+    if (ifHigherLessThanFour()) {
+      score = SCORE_NAMES[player1Point] + "-" + SCORE_NAMES[player2Point];
     }
 
-    if (P2point > P1point && P1point >= 3) {
-      score = ADVANTAGE + PLAYER2;
+    if (isAdvantage()) {
+      score = ADVANTAGE + (player2Point > player1Point ? PLAYER2 : PLAYER1);
     }
 
-    if (P1point >= 4 && P2point >= 0 && (P1point - P2point) >= 2) {
-      score = WIN_FOR + PLAYER1;
+    if (isWin()) {
+      score = WIN_FOR + (player2Point > player1Point ? PLAYER2 : PLAYER1);
     }
-    if (P2point >= 4 && P1point >= 0 && (P2point - P1point) >= 2) {
-      score = WIN_FOR + PLAYER2;
-    }
+
     return score;
   }
 
+  private boolean isDeuce() {
+    return player1Point == player2Point && player1Point >= 3;
+  };
+
+  private boolean isAdvantage() {
+    return player1Point != player2Point && Math.min(player1Point, player2Point) >= 3;
+  }
+
+  private boolean isWin() {
+    return Math.max(player1Point, player2Point) >= 4 && Math.abs(player1Point - player2Point) >= 2;
+  }
+
+  private boolean isEqual() {
+    return player1Point == player2Point && player1Point < 4;
+  }
+
+  private boolean ifHigherLessThanFour() {
+    return player1Point != player2Point && Math.max(player1Point, player2Point) < 4;
+  }
+
+  private boolean ifOneEqualZero() {
+    return Math.max(player1Point, player2Point) > 0 && Math.min(player1Point, player2Point) == 0;
+  }
+
   private void P1Score() {
-    P1point++;
+    player1Point++;
   }
 
   private void P2Score() {
-    P2point++;
+    player2Point++;
   }
 
   public void wonPoint(String player) {
