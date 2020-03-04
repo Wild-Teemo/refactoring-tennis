@@ -3,11 +3,8 @@ package cn.xpbootcamp.tennis.game3;
 import static cn.xpbootcamp.tennis.Constant.ADVANTAGE;
 import static cn.xpbootcamp.tennis.Constant.ALL;
 import static cn.xpbootcamp.tennis.Constant.DEUCE;
-import static cn.xpbootcamp.tennis.Constant.FIFTEEN;
-import static cn.xpbootcamp.tennis.Constant.FORTY;
-import static cn.xpbootcamp.tennis.Constant.LOVE;
 import static cn.xpbootcamp.tennis.Constant.PLAYER1;
-import static cn.xpbootcamp.tennis.Constant.THIRTY;
+import static cn.xpbootcamp.tennis.Constant.SCORE_NAMES;
 import static cn.xpbootcamp.tennis.Constant.WIN_FOR;
 
 import cn.xpbootcamp.tennis.TennisGame;
@@ -25,15 +22,15 @@ public class TennisGame3 implements TennisGame {
   }
 
   public String getScore() {
-    String s;
     if (score1 < 4 && score2 < 4 && !(score1 + score2 == 6)) {
-      String[] p = new String[] {LOVE, FIFTEEN, THIRTY, FORTY};
-      s = p[score1];
-      return (score1 == score2) ? s + ALL : s + "-" + p[score2];
+      return (score1 == score2) ? SCORE_NAMES[score1] + ALL : SCORE_NAMES[score1] + "-" + SCORE_NAMES[score2];
+    } else if (score1 == score2) {
+      return DEUCE;
     } else {
-      if (score1 == score2) return DEUCE;
-      s = score1 > score2 ? player1Name : player2Name;
-      return ((score1 - score2) * (score1 - score2) == 1) ? ADVANTAGE + s : WIN_FOR + s;
+      String playerName = score1 > score2 ? player1Name : player2Name;
+      return ((score1 - score2) * (score1 - score2) == 1)
+          ? ADVANTAGE + playerName
+          : WIN_FOR + playerName;
     }
   }
 
