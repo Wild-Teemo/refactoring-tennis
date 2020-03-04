@@ -1,6 +1,7 @@
 package cn.xpbootcamp.tennis;
 
 public class Constant {
+  public static final String[] SCORE_NAMES = new String[] { "Love", "Fifteen", "Thirty", "Forty" };
   public static final String LOVE = "Love";
   public static final String FIFTEEN = "Fifteen";
   public static final String THIRTY = "Thirty";
