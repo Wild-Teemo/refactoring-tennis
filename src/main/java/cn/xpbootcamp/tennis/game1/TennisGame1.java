@@ -17,77 +17,78 @@ import cn.xpbootcamp.tennis.TennisGame;
 
 public class TennisGame1 implements TennisGame {
 
-  private int playScore1 = 0;
-  private int playScore2 = 0;
+  private int player1Score = 0;
+  private int player2Score = 0;
 
   public void wonPoint(String playerName) {
-    if (playerName.equals("player1")) playScore1 += 1;
-    else playScore2 += 1;
+    if (playerName.equals("player1")) player1Score += 1;
+    else player2Score += 1;
   }
 
   public String getScore() {
-    StringBuilder score = new StringBuilder();
-    if (playScore1 == playScore2) {
+    String score = "";
+    if (player1Score == player2Score) {
       score = getScoreWhenEqual();
-    } else if (playScore1 >= 4 || playScore2 >= 4) {
+    } else if (player1Score >= 4 || player2Score >= 4) {
       score = getScoreWhenMoreThanFour();
     } else {
-      getScoreForNormal(score);
+      score = getScoreForNormal(score);
     }
-    return score.toString();
-  }
-
-  private void getScoreForNormal(StringBuilder score) {
-    int tempScore;
-    for (int i = 1; i < 3; i++) {
-      if (i == 1) tempScore = playScore1;
-      else {
-        score.append("-");
-        tempScore = playScore2;
-      }
-      switch (tempScore) {
-        case 0:
-          score.append(LOVE);
-          break;
-        case 1:
-          score.append(FIFTEEN);
-          break;
-        case 2:
-          score.append(THIRTY);
-          break;
-
-        case 3:
-          score.append(FORTY);
-          break;
-      }
-    }
-  }
-
-  private StringBuilder getScoreWhenMoreThanFour() {
-    StringBuilder score;
-    int minusResult = playScore1 - playScore2;
-    if (minusResult == 1) score = new StringBuilder(ADVANTAGE + PLAYER1);
-    else if (minusResult == -1) score = new StringBuilder(ADVANTAGE + PLAYER2);
-    else if (minusResult >= 2) score = new StringBuilder(WIN_FOR + PLAYER1);
-    else score = new StringBuilder(WIN_FOR + PLAYER2);
     return score;
   }
 
-  private StringBuilder getScoreWhenEqual() {
-    StringBuilder score;
-    switch (playScore1) {
+  private String getScoreForNormal(String score) {
+    int tempScore;
+    for (int i = 1; i < 3; i++) {
+      if (i == 1) tempScore = player1Score;
+      else {
+        score += ("-");
+        tempScore = player2Score;
+      }
+      switch (tempScore) {
+        case 0:
+          score += (LOVE);
+          break;
+        case 1:
+          score += (FIFTEEN);
+          break;
+        case 2:
+          score += (THIRTY);
+          break;
+
+        case 3:
+          score += (FORTY);
+          break;
+      }
+    }
+    return score;
+  }
+
+  private String getScoreWhenMoreThanFour() {
+    String score;
+    int minusResult = player1Score - player2Score;
+    if (minusResult == 1) score = ADVANTAGE + PLAYER1;
+    else if (minusResult == -1) score = ADVANTAGE + PLAYER2;
+    else if (minusResult >= 2) score = WIN_FOR + PLAYER1;
+    else score = WIN_FOR + PLAYER2;
+    return score;
+  }
+
+  private String getScoreWhenEqual() {
+    String score;
+    switch (player1Score) {
       case 0:
-        score = new StringBuilder(LOVE_ALL);
+        score = LOVE_ALL;
         break;
 
       case 1:
-        score = new StringBuilder(FIFTEEN_ALL);
+        score = FIFTEEN_ALL;
         break;
       case 2:
-        score = new StringBuilder(THIRTY_ALL);
+        score = THIRTY_ALL;
         break;
       default:
-        score = new StringBuilder(DEUCE);
+        score = DEUCE;
         break;
     }
     return score;
