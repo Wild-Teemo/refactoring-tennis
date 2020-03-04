@@ -27,53 +27,69 @@ public class TennisGame1 implements TennisGame {
 
   public String getScore() {
     StringBuilder score = new StringBuilder();
-    int tempScore;
     if (playScore1 == playScore2) {
-      switch (playScore1) {
-        case 0:
-          score = new StringBuilder(LOVE_ALL);
-          break;
-
-        case 1:
-          score = new StringBuilder(FIFTEEN_ALL);
-          break;
-        case 2:
-          score = new StringBuilder(THIRTY_ALL);
-          break;
-        default:
-          score = new StringBuilder(DEUCE);
-          break;
-      }
+      score = getScoreWhenEqual();
     } else if (playScore1 >= 4 || playScore2 >= 4) {
-      int minusResult = playScore1 - playScore2;
-      if (minusResult == 1) score = new StringBuilder(ADVANTAGE + PLAYER1);
-      else if (minusResult == -1) score = new StringBuilder(ADVANTAGE + PLAYER2);
-      else if (minusResult >= 2) score = new StringBuilder(WIN_FOR + PLAYER1);
-      else score = new StringBuilder(WIN_FOR + PLAYER2);
+      score = getScoreWhenMoreThanFour();
     } else {
-      for (int i = 1; i < 3; i++) {
-        if (i == 1) tempScore = playScore1;
-        else {
-          score.append("-");
-          tempScore = playScore2;
-        }
-        switch (tempScore) {
-          case 0:
-            score.append(LOVE);
-            break;
-          case 1:
-            score.append(FIFTEEN);
-            break;
-          case 2:
-            score.append(THIRTY);
-            break;
-
-          case 3:
-            score.append(FORTY);
-            break;
-        }
-      }
+      getScoreForNormal(score);
     }
     return score.toString();
+  }
+
+  private void getScoreForNormal(StringBuilder score) {
+    int tempScore;
+    for (int i = 1; i < 3; i++) {
+      if (i == 1) tempScore = playScore1;
+      else {
+        score.append("-");
+        tempScore = playScore2;
+      }
+      switch (tempScore) {
+        case 0:
+          score.append(LOVE);
+          break;
+        case 1:
+          score.append(FIFTEEN);
+          break;
+        case 2:
+          score.append(THIRTY);
+          break;
+
+        case 3:
+          score.append(FORTY);
+          break;
+      }
+    }
+  }
+
+  private StringBuilder getScoreWhenMoreThanFour() {
+    StringBuilder score;
+    int minusResult = playScore1 - playScore2;
+    if (minusResult == 1) score = new StringBuilder(ADVANTAGE + PLAYER1);
+    else if (minusResult == -1) score = new StringBuilder(ADVANTAGE + PLAYER2);
+    else if (minusResult >= 2) score = new StringBuilder(WIN_FOR + PLAYER1);
+    else score = new StringBuilder(WIN_FOR + PLAYER2);
+    return score;
+  }
+
+  private StringBuilder getScoreWhenEqual() {
+    StringBuilder score;
+    switch (playScore1) {
+      case 0:
+        score = new StringBuilder(LOVE_ALL);
+        break;
+
+      case 1:
+        score = new StringBuilder(FIFTEEN_ALL);
+        break;
+      case 2:
+        score = new StringBuilder(THIRTY_ALL);
+        break;
+      default:
+        score = new StringBuilder(DEUCE);
+        break;
+    }
+    return score;
   }
 }
