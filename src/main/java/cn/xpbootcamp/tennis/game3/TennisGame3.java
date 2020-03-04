@@ -28,7 +28,7 @@ public class TennisGame3 implements TennisGame {
       return DEUCE;
     } else {
       String playerName = score1 > score2 ? player1Name : player2Name;
-      return ((score1 - score2) * (score1 - score2) == 1)
+      return (Math.abs(score1 - score2) == 1)
           ? ADVANTAGE + playerName
           : WIN_FOR + playerName;
     }
