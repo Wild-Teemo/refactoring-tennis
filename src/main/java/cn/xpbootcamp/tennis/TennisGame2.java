@@ -24,25 +24,22 @@ public class TennisGame2 implements TennisGame {
   }
 
   public String getScore() {
-    String score = "";
-    if (isEqual()) {
-      score = SCORE_NAMES[player1Point] + ALL;
-    }
-
-    if (isDeuce()) score = DEUCE;
-
-    if (ifHigherLessThanFour()) {
-      score = SCORE_NAMES[player1Point] + "-" + SCORE_NAMES[player2Point];
-    }
-
-    if (isAdvantage()) {
-      score = ADVANTAGE + (player2Point > player1Point ? PLAYER2 : PLAYER1);
-    }
-
     if (isWin()) {
-      score = WIN_FOR + (player2Point > player1Point ? PLAYER2 : PLAYER1);
+      return WIN_FOR + (player2Point > player1Point ? PLAYER2 : PLAYER1);
     }
-    return score;
+    if (isAdvantage()) {
+      return ADVANTAGE + (player2Point > player1Point ? PLAYER2 : PLAYER1);
+    }
+    if (ifHigherLessThanFour()) {
+      return SCORE_NAMES[player1Point] + "-" + SCORE_NAMES[player2Point];
+    }
+    if (isDeuce()) return DEUCE;
+
+    if (isEqual()) {
+      return SCORE_NAMES[player1Point] + ALL;
+    }
+
+    return "";
   }
 
   private boolean isDeuce() {

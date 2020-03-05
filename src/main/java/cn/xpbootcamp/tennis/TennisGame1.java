@@ -8,8 +8,6 @@ import static cn.xpbootcamp.tennis.Constant.PLAYER2;
 import static cn.xpbootcamp.tennis.Constant.SCORE_NAMES;
 import static cn.xpbootcamp.tennis.Constant.WIN_FOR;
 
-import cn.xpbootcamp.tennis.TennisGame;
-
 public class TennisGame1 implements TennisGame {
 
   private int player1Score = 0;
